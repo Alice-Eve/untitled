@@ -5,8 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    routes:[],
+    currentHr: JSON.parse(window.sessionStorage.getItem("user")),
   },
   mutations: {
+    initRoutes(state, data) {
+      state.routes = data;
+    },
+    INIT_CURRENTHR(state, hr) {
+      state.currentHr = hr;
+    },
   },
   actions: {
   },

@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import {postKeyValueRequest} from "@/utils/api";
 
 export default {
   name: "Login",
@@ -54,9 +53,11 @@ export default {
     submitLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          postKeyValueRequest('/login',this.loginForm).then(resp=>{
+          this.postKeyValueRequest('/login',this.loginForm).then(resp=>{
             if (resp) {
-              alert(JSON.stringify(resp))
+              this.$store.commit('INIT_CURRENTHR', resp.obj);
+              window.sessionStorage.setItem("user",JSON.stringify(resp.obj));
+              this.$router.replace('/home')
             }
           })
         } else {
@@ -120,7 +121,7 @@ p.pass-form-logo {
   font-size: 16px;
   height: 32px;
   line-height: 46px;
-  padding-left: 66px;
+  padding-left: 106px;
   color: #000;
   margin-bottom: 15px;
 }
