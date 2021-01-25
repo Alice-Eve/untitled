@@ -24,11 +24,11 @@
         </div>
       </el-header>
       <el-container>
-        <el-aside width="collapse" >
-          <el-menu class="el-menu-vertical" :collapse="isCollapse" router unique-opened>
+        <el-aside width="collapse">
+          <el-menu router unique-opened class="el-menu-vertical" :collapse="isCollapse">
             <el-submenu :index="index+''" v-for="(item,index) in routes" v-if="!item.hidden" :key="index">
               <template slot="title">
-                <i style="color: #409eff;margin-right: 5px" :class="item.iconCls"></i>
+                <i style="color: #409eff;margin-right: 8px" :class="item.iconCls"></i>
                 <span>{{item.name}}</span>
               </template>
               <el-menu-item :index="child.path" v-for="(child,indexj) in item.children" :key="indexj">
@@ -37,7 +37,16 @@
             </el-submenu>
           </el-menu>
         </el-aside>
-        <el-main>Main</el-main>
+        <el-main>
+          <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path!='/home'">
+            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
+          </el-breadcrumb>
+          <div class="homeWelcome" v-if="this.$router.currentRoute.path=='/home'">
+            欢迎来到微人事！
+          </div>
+          <router-view class="homeRouterView"/>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -97,20 +106,7 @@ export default {
 </script>
 
 <style>
-.el-container {
-  height: 100%;
-}
-.el-aside {
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 66px;
-  bottom: 0;
-  overflow-y: scroll;
-}
-.el-menu {
-  height: 100%;
-}
+
 .el-menu-vertical:not(.el-menu--collapse) {
   width: 250px;
 }
@@ -119,6 +115,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.homeRouterView {
+  margin-top: 10px;
 }
 .el-header img {
   height: 40px;

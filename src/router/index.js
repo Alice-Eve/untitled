@@ -11,13 +11,18 @@ const routes = [
     name: 'Login',
     component: Login,
     hidden: true
-  },
-  {
+  }, {
     path: '/home',
     name: 'Home',
     component: Home,
-    hidden: true
-  },
+    hidden: true,
+    meta: {
+      roles: ['admin', 'user']
+    },
+    children: [
+
+    ]
+  }
 ]
 
 const router = new VueRouter({
