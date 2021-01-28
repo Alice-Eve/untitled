@@ -32,7 +32,7 @@ router.beforeEach((to, from, next) => {
       initMenu(router, store);
       next();
     } else {
-      next('/?redirect=' + to.path);
+      next('/?redirect='+to.path);
     }
   }
 })

@@ -13,7 +13,8 @@
             :rules="rules"
             ref="loginForm"
             :model="loginForm"
-            class="pass-form">
+            class="pass-form"
+            @keydown.enter.native="submitLogin">
           <p class="pass-form-logo">人事系统登录</p>
           <el-form-item prop="username">
             <el-input size="normal" type="text" v-model="loginForm.username" auto-complete="off"
@@ -57,7 +58,8 @@ export default {
             if (resp) {
               this.$store.commit('INIT_CURRENTHR', resp.obj);
               window.sessionStorage.setItem("user",JSON.stringify(resp.obj));
-              this.$router.replace('/home')
+              let path = this.$route.query.redirect;
+              this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
             }
           })
         } else {
