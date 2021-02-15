@@ -2,11 +2,11 @@
   <div>
     <template>
       <el-tabs v-model="activeName" >
-        <el-tab-pane label="部门管理" name="first"><DepMana></DepMana></el-tab-pane>
-        <el-tab-pane label="职位管理" name="second"><PosMana></PosMana></el-tab-pane>
-        <el-tab-pane label="职称管理" name="third"><JobLevelMana></JobLevelMana></el-tab-pane>
-        <el-tab-pane label="奖罚规则" name="fourth"><EcMana></EcMana></el-tab-pane>
-        <el-tab-pane label="权限组" name="fourth1"><PermissMana></PermissMana></el-tab-pane>
+        <el-tab-pane label="部门管理" name="depmana"><DepMana></DepMana></el-tab-pane>
+        <el-tab-pane label="职位管理" name="posmana"><PosMana></PosMana></el-tab-pane>
+        <el-tab-pane label="职称管理" name="joblevelmana"><JobLevelMana></JobLevelMana></el-tab-pane>
+        <el-tab-pane label="奖罚规则" name="ecmana"><ecMana></EcMana></el-tab-pane>
+        <el-tab-pane label="权限组" name="permissmana"><permissMana></permissMana></el-tab-pane>
       </el-tabs>
     </template>
   </div>
@@ -23,7 +23,7 @@ export default {
   name: "SysBasic",
   data() {
     return {
-      activeName: 'second'
+      activeName: 'depmana'
     }
   },
   components: {
