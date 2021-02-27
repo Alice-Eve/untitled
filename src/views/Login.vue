@@ -10,6 +10,7 @@
     <div class="login-container">
       <div class="login-form">
         <el-form
+            v-loading="loading"
             :rules="rules"
             ref="loginForm"
             :model="loginForm"
@@ -44,6 +45,7 @@ export default {
         password: '123',
       },
       checked: true,
+      loading: false,
       rules: {
         username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
         password: [{required: true, message: '请输入密码', trigger: 'blur'}],
@@ -54,14 +56,18 @@ export default {
     submitLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.postKeyValueRequest('/login',this.loginForm).then(resp=>{
-            if (resp) {
-              this.$store.commit('INIT_CURRENTHR', resp.obj);
-              window.sessionStorage.setItem("user",JSON.stringify(resp.obj));
-              let path = this.$route.query.redirect;
-              this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
-            }
-          })
+          this.loading = true;
+          setTimeout(() => {
+            this.postKeyValueRequest('/login',this.loginForm).then(resp=>{
+              this.loading = false;
+              if (resp) {
+                this.$store.commit('INIT_CURRENTHR', resp.obj);
+                window.sessionStorage.setItem("user",JSON.stringify(resp.obj));
+                let path = this.$route.query.redirect;
+                this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
+              }
+            })
+          }, 96);
         } else {
           return false;
         }
